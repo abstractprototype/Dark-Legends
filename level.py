@@ -1,8 +1,8 @@
 import pygame
-
 from settings import TILESIZE, WORLD_MAP
 from tile import Tile
 from player import Player
+from support import *
 from debug import debug
 
 
@@ -20,19 +20,27 @@ class Level:
         self.create_map()
 
     def create_map(self):
-        # # loops thru all the rows and its indexes
-        # for row_index, row in enumerate(WORLD_MAP):
-        #     # loops thru all the columns and its indexes
-        #     for col_index, col in enumerate(row):
-        #         x = col_index * TILESIZE
-        #         y = row_index * TILESIZE
-        #         if col == 'x':
-        #             Tile((x, y), [self.visible_sprites,
-        #                  self.obstacle_sprites])
-        #         if col == 'p':
-        #             self.player = Player(
-        #                 (x, y), [self.visible_sprites], self.obstacle_sprites)
+        layouts = {
+            'boundary': import_csv_layout('./map/map_FloorBlocks.csv')
+        }
 
+        for style, layout in layouts.items():  # style='boundary', layout=import_csv_layout
+            # loops thru all the rows and its indexes
+            for row_index, row in enumerate(layout):
+                # loops thru all the columns and its indexes
+                for col_index, col in enumerate(row):
+                    if col != '-1':
+                        x = col_index * TILESIZE
+                        y = row_index * TILESIZE
+                        if style == 'boundary':
+                            Tile((x, y), [self.visible_sprites,
+                                          self.obstacle_sprites], 'invisible')
+            #         if col == 'x':
+            #             Tile((x, y), [self.visible_sprites,
+            #                  self.obstacle_sprites])
+            #         if col == 'p':
+            #             self.player = Player(
+            #                 (x, y), [self.visible_sprites], self.obstacle_sprites)
         self.player = Player(
             (2000, 1430), [self.visible_sprites], self.obstacle_sprites)
 
