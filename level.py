@@ -28,18 +28,22 @@ class Level:
 
         }
         graphics = {
-            'grass': import_folder('./graphics/Grass')
+            'grass': import_folder('./graphics/Grass'),
+            'objects': import_folder('./graphics/objects')
         }
 
         for style, layout in layouts.items():  # style='boundary', layout=import_csv_layout
             # loops thru all the rows and its indexes
             for row_index, row in enumerate(layout):
                 # loops thru all the columns and its indexes
+                # Adds collision to all the obstacles
                 for col_index, col in enumerate(row):
                     if col != '-1':
                         x = col_index * TILESIZE
                         y = row_index * TILESIZE
+
                         if style == 'boundary':
+                            # create the boundary surround the entire map so player can't leave
                             Tile((x, y), [
                                 self.obstacle_sprites], 'invisible')
                         if style == 'grass':
@@ -49,16 +53,11 @@ class Level:
                                  self.obstacle_sprites], 'grass', random_grass_image)
                         if style == 'object':
                             # create an object tile
-                            pass
+                            surf = graphics['objects'][int(col)]
+                            Tile((x, y), [self.visible_sprites,
+                                 self.obstacle_sprites], 'object', surf)
 
-                            #         if col == 'x':
-                            #             Tile((x, y), [self.visible_sprites,
-                            #                  self.obstacle_sprites])
-                            #         if col == 'p':
-                            #             self.player = Player(
-                            #                 (x, y), [self.visible_sprites], self.obstacle_sprites)
-
-                            # Players starting position on the map
+        # Players starting position on the map
         self.player = Player(
             (2000, 1430), [self.visible_sprites], self.obstacle_sprites)
 
