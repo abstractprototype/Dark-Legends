@@ -1,9 +1,10 @@
 import pygame
-from settings import TILESIZE, WORLD_MAP
+from settings import TILESIZE
 from tile import Tile
 from player import Player
 from support import *
 from random import choice, random
+from weapon import Weapon
 from debug import debug
 
 
@@ -16,6 +17,9 @@ class Level:
         # sprite group setup
         self.visible_sprites = YSortCameraGroup()
         self.obstacle_sprites = pygame.sprite.Group()
+
+        # attack sprites
+        self.current_attack = None
 
         # sprite setup
         self.create_map()
@@ -59,12 +63,21 @@ class Level:
 
         # Players starting position on the map
         self.player = Player(
-            (2000, 1430), [self.visible_sprites], self.obstacle_sprites)
+            (2000, 1430), [self.visible_sprites], self.obstacle_sprites, self.create_attack, self.destroy_attack)
+
+    def create_attack(self):
+        self.current_attack = Weapon(self.player, [self.visible_sprites])
+
+    def destroy_attack(self):
+        if self.current_attack:
+            self.current_attack.kill()
+        self.current_attack = None
 
     def run(self):
         # update and draw the game
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
+        debug(self.player.status)
         # debug(self.player.direction)
 
 
