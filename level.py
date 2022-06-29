@@ -3,6 +3,7 @@ from settings import TILESIZE, WORLD_MAP
 from tile import Tile
 from player import Player
 from support import *
+from random import choice, random
 from debug import debug
 
 
@@ -21,7 +22,13 @@ class Level:
 
     def create_map(self):
         layouts = {
-            'boundary': import_csv_layout('./map/map_FloorBlocks.csv')
+            'boundary': import_csv_layout('./map/map_FloorBlocks.csv'),
+            'grass': import_csv_layout('./map/map_Grass.csv'),
+            'object': import_csv_layout('./map/map_Objects.csv'),
+
+        }
+        graphics = {
+            'grass': import_folder('./graphics/Grass')
         }
 
         for style, layout in layouts.items():  # style='boundary', layout=import_csv_layout
@@ -33,14 +40,25 @@ class Level:
                         x = col_index * TILESIZE
                         y = row_index * TILESIZE
                         if style == 'boundary':
+                            Tile((x, y), [
+                                self.obstacle_sprites], 'invisible')
+                        if style == 'grass':
+                            # create a grass tile
+                            random_grass_image = choice(graphics['grass'])
                             Tile((x, y), [self.visible_sprites,
-                                          self.obstacle_sprites], 'invisible')
-            #         if col == 'x':
-            #             Tile((x, y), [self.visible_sprites,
-            #                  self.obstacle_sprites])
-            #         if col == 'p':
-            #             self.player = Player(
-            #                 (x, y), [self.visible_sprites], self.obstacle_sprites)
+                                 self.obstacle_sprites], 'grass', random_grass_image)
+                        if style == 'object':
+                            # create an object tile
+                            pass
+
+                            #         if col == 'x':
+                            #             Tile((x, y), [self.visible_sprites,
+                            #                  self.obstacle_sprites])
+                            #         if col == 'p':
+                            #             self.player = Player(
+                            #                 (x, y), [self.visible_sprites], self.obstacle_sprites)
+
+                            # Players starting position on the map
         self.player = Player(
             (2000, 1430), [self.visible_sprites], self.obstacle_sprites)
 
