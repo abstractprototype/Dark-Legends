@@ -1,5 +1,4 @@
-import pygame
-import sys
+import pygame, sys
 from settings import *
 from level import Level
 # from debug import debug
@@ -22,13 +21,15 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_m:
+                        self.level.toggle_menu()
 
             self.screen.fill('black')
             self.level.run()
             # debug('hello :)')
             pygame.display.update()
             self.clock.tick(FPS)
-
 
 if __name__ == '__main__':
     game = Game()

@@ -41,11 +41,13 @@ class Player(Entity):
         # base stats
         self.stats = {'health': 100, 'energy': 60,
                       'attack': 10, 'magic': 4, 'speed': 5}  # max default player stats
+        self.max_stats = {'health': 300, 'energy': 140, 'attack': 20, 'magic': 10, 'speed': 10}
+        self.upgrade_cost = {'health': 100, 'energy': 100, 'attack': 100, 'magic' : 100, 'speed': 100}
         # current health you spawn with
         self.health = self.stats['health'] * 0.5
         # current energy you spawn with
         self.energy = self.stats['energy'] * 0.8
-        self.exp = 123
+        self.exp = 500
         self.speed = self.stats['speed']
 
         # damage timer
