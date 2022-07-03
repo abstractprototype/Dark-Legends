@@ -6,9 +6,16 @@ from random import randint
 class MagicPlayer:
     def __init__(self, animation_player):
         self.animation_player = animation_player
+        self.sounds = {
+            'heal': pygame.mixer.Sound('./audio/heal.wav'),
+            'flame': pygame.mixer.Sound('./audio/Fire.wav')
+        }
+        self.sounds['flame'].set_volume(0.6)
+        self.sounds['heal'].set_volume(0.6)
 
     def heal(self, player, strength, cost, groups):
         if player.energy >= cost:
+            self.sounds['heal'].play()
             player.health += strength
             player.energy -= cost
             # prevents overhealing your hp bar
@@ -21,6 +28,7 @@ class MagicPlayer:
 
     def flame(self, player, cost, groups):
         if player.energy >= cost:
+            self.sounds['flame'].play()
             player.energy -= cost
 
             # to prevent getting up_idle or up_attack, we only want word before _
