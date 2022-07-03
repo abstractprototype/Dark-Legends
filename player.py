@@ -47,7 +47,7 @@ class Player(Entity):
         self.health = self.stats['health'] * 0.5
         # current energy you spawn with
         self.energy = self.stats['energy'] * 0.8
-        self.exp = 50000
+        self.exp = 123
         self.speed = self.stats['speed']
 
         # damage timer
@@ -218,7 +218,7 @@ class Player(Entity):
 
     def energy_recovery(self):
         if self.energy < self.stats['energy']:
-            self.energy += 0.1 * self.stats['magic']
+            self.energy += 0.001 * self.stats['magic']
         else:
             self.energy = self.stats['energy']
 
