@@ -1,2 +1,2 @@
-# Dark-Legends
-Zelda RPG style game made with Python
+# Pixel-Legend
+RPG style game made with pygame
