@@ -47,7 +47,7 @@ class Player(Entity):
         self.health = self.stats['health'] * 0.5
         # current energy you spawn with
         self.energy = self.stats['energy'] * 0.8
-        self.exp = 500
+        self.exp = 50000
         self.speed = self.stats['speed']
 
         # damage timer
@@ -205,16 +205,22 @@ class Player(Entity):
         spell_damage = magic_data[self.magic]['strength']
         return base_damage + spell_damage
 
+    def get_value_by_index(self, index):
+        return list(self.stats.values())[index]
+
+    def get_cost_by_index(self, index):
+        return list(self.upgrade_cost.values())[index]
+
     def energy_recovery(self):
         if self.energy < self.stats['energy']:
             self.energy += 0.1 * self.stats['magic']
         else:
-            self.energty = self.stats['energy']
+            self.energy = self.stats['energy']
 
     def update(self):
         self.input()
         self.cooldowns()
         self.get_status()
         self.animate()
-        self.move(self.speed)
+        self.move(self.stats['speed'])
         self.energy_recovery()
