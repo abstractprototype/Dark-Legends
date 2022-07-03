@@ -25,7 +25,7 @@ class Game:
                     if event.key == pygame.K_m:
                         self.level.toggle_menu()
 
-            self.screen.fill('black')
+            self.screen.fill(WATER_COLOR) # fills the area outside of the island with water color
             self.level.run()
             # debug('hello :)')
             pygame.display.update()

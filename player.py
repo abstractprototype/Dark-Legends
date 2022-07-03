@@ -10,7 +10,7 @@ class Player(Entity):
         self.image = pygame.image.load(
             './graphics/test/player.png').convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(0, -26)
+        self.hitbox = self.rect.inflate(-6, HITBOX_OFFSET['player']) # makes hitbox for player smaller so they can move around better and fit through small spaces
 
         # graphics setup
         self.import_player_assets()
