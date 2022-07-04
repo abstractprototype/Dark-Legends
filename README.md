@@ -1,2 +1,2 @@
 # Pixel-Legend
-RPG style game made with pygame
+Top down RPG style game made with pygame
